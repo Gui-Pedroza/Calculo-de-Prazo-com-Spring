@@ -8,15 +8,19 @@ import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pedroza.prazo.calculoprazo.entities.PrazoPresidentePrudente;
 
-public class PrazoPPService {
+@Service
+public class PrazoPPService extends PrazoService {
 	
 	@Autowired
 	PrazoPresidentePrudente prazoPP;
-
-	public void readFile() {
+	
+	@Override
+	public void loadHolidays() {
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(prazoPP.getCaminhoArquivo()))) {
 			String lines = br.readLine();
 			while (lines != null) {
@@ -30,8 +34,10 @@ public class PrazoPPService {
 		} catch (IOException e) {
 			System.out.println("Arquivo não encontrado " + e.getMessage());
 		}
-
+		
 	}
+
+	
 
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
@@ -54,5 +60,7 @@ public class PrazoPPService {
 		}
 		return result;
 	}
+
+	
 
 }

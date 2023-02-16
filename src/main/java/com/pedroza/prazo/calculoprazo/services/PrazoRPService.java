@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import com.pedroza.prazo.calculoprazo.entities.PrazoRP;
 
 @Service
-public class PrazoRPService {
+public class PrazoRPService extends PrazoService {
 
 	@Autowired
 	PrazoRP prazoRP;
 
-	public void readFile() {
+	@Override	
+	public void loadHolidays() {
 		try (BufferedReader br = new BufferedReader(new FileReader(prazoRP.getCaminhoArquivo()))) {
 			String lines = br.readLine();
 			while (lines != null) {
@@ -32,9 +33,10 @@ public class PrazoRPService {
 		} catch (IOException e) {
 			System.out.println("Arquivo não encontrado " + e.getMessage());
 		}
-
+		
 	}
 
+	
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
 		if (startDate == null || days <= 0 || prazoRP.getHolidays() == null) {
@@ -42,7 +44,9 @@ public class PrazoRPService {
 					+ days + "," + prazoRP.getHolidays() + ")");
 		}
 
-		Predicate<LocalDate> isHoliday = date -> prazoRP.getHolidays().isPresent() ? prazoRP.getHolidays().get().contains(date) : false;
+		Predicate<LocalDate> isHoliday = date -> prazoRP.getHolidays().isPresent()
+				? prazoRP.getHolidays().get().contains(date)
+				: false;
 
 		Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
 				|| date.getDayOfWeek() == DayOfWeek.SUNDAY;

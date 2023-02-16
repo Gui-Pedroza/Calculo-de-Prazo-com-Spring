@@ -1,5 +1,8 @@
 package com.pedroza.prazo.calculoprazo.entities;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PrazoPresidentePrudente extends Prazo {
 	
 	private final String caminhoArquivo = 

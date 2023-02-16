@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class PrazoRP extends Prazo {
 	
 	private final String caminhoArquivo = 
-			"C:\\Users\\gui_p\\Desktop\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\PrazoTXT\\PrazoRP.txt";
+			"C:\\Users\\gui_p\\Desktop\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\Prazos_TXT\\PrazoRP.txt";
 
 	public PrazoRP() {
 		super();
