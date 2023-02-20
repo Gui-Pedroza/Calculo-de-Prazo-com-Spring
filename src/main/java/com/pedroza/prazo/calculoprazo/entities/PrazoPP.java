@@ -3,18 +3,17 @@ package com.pedroza.prazo.calculoprazo.entities;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PrazoPresidentePrudente extends Prazo {
+public class PrazoPP extends Prazo {
 	
 	private final String caminhoArquivo = 
 			"C:\\Users\\gui_p\\Desktop\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\Prazos_TXT\\PrazoPP.txt";
-			
 
-	public PrazoPresidentePrudente() {
+	public PrazoPP() {
 		super();
 		
 	}
 
-	public PrazoPresidentePrudente(String caminhoArquivo) {
+	public PrazoPP(String caminhoArquivo) {
 		super(caminhoArquivo);
 		
 	}
@@ -22,5 +21,9 @@ public class PrazoPresidentePrudente extends Prazo {
 	public String getCaminhoArquivo() {
 		return caminhoArquivo;
 	}
+	
+	
+	
+	
 
 }

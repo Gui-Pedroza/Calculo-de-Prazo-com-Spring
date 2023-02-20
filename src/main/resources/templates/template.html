@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	<link rel="stylesheet" href="style.css">
 	<script>
+		function showDaysToAddInput() {
+			var dropdown = document.getElementById("days-to-add-dropdown");
+			var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+			if (selectedValue === "outro") {
+				document.getElementById("days-to-add-custom").style.display = "block";
+			} else {
+				document.getElementById("days-to-add-custom").style.display = "none";
+			}
+		}
 		function sendData() {
+			fetch
 			// Recebe os dados do usuário
 			var startDate = document.getElementById("start-date").value;
-			var daysToAdd = document.getElementById("days-to-add").value;
+			var daysToAdd = document.getElementById("days-to-add-dropdown").value;
+			if (daysToAdd === "outro") {
+				daysToAdd = document.getElementById("days-to-add-custom").value;
+			}
+			
 			var city = document.getElementById("city").value;
 
 			if (city === "") {
@@ -21,7 +36,10 @@
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 					// Atualiza a pagina com o resultado
-					document.getElementById("result").innerHTML = xhr.responseText;
+					var resultElement = document.getElementById("result");
+					var resultText = "O seu prazo final é: " + new Date(xhr.responseText)
+						.toLocaleDateString("pt-BR", {day: "numeric", month: "long", year: "numeric"});
+					resultElement.textContent = resultText
 				}
 			};
 			xhr.send("startDate=" + startDate + "&daysToAdd=" + daysToAdd);
@@ -37,6 +55,7 @@
 		<label for="start-date">Data inicial:</label>
 		<input type="date" id="start-date" />
 	</div>
+	<br>
 	<div class="form-group">
 		<label for="city">Escolha a cidade:</label>
 		<select id="city" class="form-control" name="city">
@@ -46,23 +65,30 @@
 			<option value="presidente-prudente">Presidente Prudente</option>
 			<option value="marilia">Marília</option>
 		</select>
-		<p></p>
-		<label for="days-to-add">Escolha a quantidade de dias:</label>
-		<select id="days-to-add" class="form-control" name="days-to-add">
+		<br><br>
+		<label for="days-to-add-dropdown">Escolha a quantidade de dias:</label>
+		<select id="days-to-add-dropdown" class="form-control" name="days-to-add-dropdown" onchange="showDaysToAddInput()">
 			<option value="5">5 dias</option>
 			<option value="15">15 dias</option>
 			<option value="30">30 dias</option>
 			<option value="60">60 dias</option>
+			<option value="outro">Outro</option>
 		</select>
 	</div>
+	<br>
 	<div>
-		<label for="days-to-add">Outra quantidade:</label>
-		<input type="number" id="days-to-add" placeholder="Digite o prazo" />
-	</div>
-	<div>
-		<button onclick="sendData()">Calcular</button>
-	</div>
-	<div id="result"></div>
+		<div id="outro-quantidade" style="display: none;">
+			<label for="days-to-add">Outra quantidade:</label>
+			<input type="number" id="days-to-add" placeholder="Digite o prazo" />
+		</div>
+		<br>
+		<div>
+			<button onclick="sendData()">Calcular</button>
+		</div>
+		<br>
+		<div id="result"></div>
+		<br>
+		<footer>Criado por Guilherme Pedroza</footer>
 </body>
 
 </html>

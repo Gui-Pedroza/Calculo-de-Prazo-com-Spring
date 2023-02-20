@@ -4,11 +4,31 @@ import java.time.LocalDate;
 
 public abstract class PrazoService {
 	
-	// método que vai ler os feriados de um arquivo TXT para montar o conjunto (Set) de cada região
+	
 	public abstract void loadHolidays();
 	
-	// este é o método central do programa:
-	// calcula a quantidade de prazo desconsiderando dias úteis e feriados 
+	
 	public abstract LocalDate addBusinessDays(LocalDate startDate, int daysToAdd);
+	
+	// tirar o metodo de selecionar cidade da API e trazer ele pra service:
+	public static PrazoService selecionaCidade(String city) {
+		PrazoService service = null;
+		switch (city) {
+		case "ribeirao-preto":
+			service = new PrazoRPService();
+		break;
+		case "presidente-prudente":
+			service = new PrazoPPService();
+		break;
+		case "campinas":
+			// criar classe Campinas
+		break;
+		case "marilia":
+			// criar classe Marília
+		default:
+			throw new IllegalArgumentException("Cidade inválida: " + city);		
+		}
+		return service;
+	}
 
 }

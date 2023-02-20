@@ -18,7 +18,7 @@ public class PrazoRPService extends PrazoService {
 	@Autowired
 	PrazoRP prazoRP;
 
-	@Override	
+	@Override
 	public void loadHolidays() {
 		try (BufferedReader br = new BufferedReader(new FileReader(prazoRP.getCaminhoArquivo()))) {
 			String lines = br.readLine();
@@ -31,12 +31,10 @@ public class PrazoRPService extends PrazoService {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Arquivo não encontrado " + e.getMessage());
+			System.out.println("Arquivo de leitura não encontrado " + e.getMessage());
 		}
-		
 	}
 
-	
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
 		if (startDate == null || days <= 0 || prazoRP.getHolidays() == null) {
