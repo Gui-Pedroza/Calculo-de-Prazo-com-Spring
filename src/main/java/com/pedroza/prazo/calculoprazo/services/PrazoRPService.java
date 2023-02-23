@@ -16,7 +16,7 @@ import com.pedroza.prazo.calculoprazo.entities.PrazoRP;
 public class PrazoRPService extends PrazoService {
 
 	@Autowired
-	PrazoRP prazoRP;
+	 PrazoRP prazoRP;	
 
 	@Override
 	public void loadHolidays() {
@@ -34,7 +34,7 @@ public class PrazoRPService extends PrazoService {
 			System.out.println("Arquivo de leitura não encontrado " + e.getMessage());
 		}
 	}
-
+	@Override
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
 		if (startDate == null || days <= 0 || prazoRP.getHolidays() == null) {

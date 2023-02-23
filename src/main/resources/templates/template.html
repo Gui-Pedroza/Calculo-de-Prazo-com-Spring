@@ -7,21 +7,26 @@
 		function showDaysToAddInput() {
 			var dropdown = document.getElementById("days-to-add-dropdown");
 			var selectedValue = dropdown.options[dropdown.selectedIndex].value;
+			var outroQuantidade = document.getElementById("outro-quantidade");
+
 			if (selectedValue === "outro") {
-				document.getElementById("days-to-add-custom").style.display = "block";
+				outroQuantidade.style.display = "block";
 			} else {
-				document.getElementById("days-to-add-custom").style.display = "none";
+				outroQuantidade.style.display = "none";
 			}
 		}
 		function sendData() {
 			fetch
 			// Recebe os dados do usuário
 			var startDate = document.getElementById("start-date").value;
-			var daysToAdd = document.getElementById("days-to-add-dropdown").value;
+			var daysToAddDropdown = document.getElementById("days-to-add-dropdown");
+			var daysToAddCustom = document.getElementById("days-to-add-custom");
+			var daysToAdd = daysToAddDropdown.value;
+
 			if (daysToAdd === "outro") {
-				daysToAdd = document.getElementById("days-to-add-custom").value;
+				daysToAdd = daysToAddCustom.value;
 			}
-			
+
 			var city = document.getElementById("city").value;
 
 			if (city === "") {
@@ -51,6 +56,12 @@
 </head>
 
 <body>
+	<p>O sistema a seguir é uma ferramenta simples para mera consulta de prazos processuais cíveis no âmbito do Tribunal
+		de Justiça
+		do Estado de São Paulo a fim de auxiliar advogados, serventia e colegas de trabalho, especialmente da Comarca de
+		Ribeirão Preto.
+	</p>
+	<p></p>
 	<div>
 		<label for="start-date">Data inicial:</label>
 		<input type="date" id="start-date" />
@@ -67,7 +78,8 @@
 		</select>
 		<br><br>
 		<label for="days-to-add-dropdown">Escolha a quantidade de dias:</label>
-		<select id="days-to-add-dropdown" class="form-control" name="days-to-add-dropdown" onchange="showDaysToAddInput()">
+		<select id="days-to-add-dropdown" class="form-control" name="days-to-add-dropdown"
+			onchange="showDaysToAddInput()">
 			<option value="5">5 dias</option>
 			<option value="15">15 dias</option>
 			<option value="30">30 dias</option>
@@ -78,8 +90,8 @@
 	<br>
 	<div>
 		<div id="outro-quantidade" style="display: none;">
-			<label for="days-to-add">Outra quantidade:</label>
-			<input type="number" id="days-to-add" placeholder="Digite o prazo" />
+			<label for="days-to-add-custom">Outra quantidade:</label>
+			<input type="number" id="days-to-add-custom" placeholder="Digite o prazo" />
 		</div>
 		<br>
 		<div>
