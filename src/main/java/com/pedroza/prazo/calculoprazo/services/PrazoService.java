@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public abstract class PrazoService {
 		
-	@Autowired
+	
 	private static ApplicationContext applicationContext;
+	
 	
 	public abstract void loadHolidays();
 	

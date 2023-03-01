@@ -43,8 +43,7 @@ public class PrazoRPService extends PrazoService {
 		}
 
 		Predicate<LocalDate> isHoliday = date -> prazoRP.getHolidays().isPresent()
-				? prazoRP.getHolidays().get().contains(date)
-				: false;
+				? prazoRP.getHolidays().get().contains(date) : false;
 
 		Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
 				|| date.getDayOfWeek() == DayOfWeek.SUNDAY;

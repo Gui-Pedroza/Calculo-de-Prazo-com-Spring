@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class Prazo {
 	
-	private String caminhoArquivo;	
-	Set<LocalDate> holidays = new HashSet<>();
+	private String caminhoArquivo;
 	
+	Set<LocalDate> holidays = new HashSet<>();	
 	
 
 	public Optional<Set<LocalDate>> getHolidays() {

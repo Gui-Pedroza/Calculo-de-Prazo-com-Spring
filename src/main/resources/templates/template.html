@@ -43,7 +43,7 @@
 					// Atualiza a pagina com o resultado
 					var resultElement = document.getElementById("result");
 					var resultText = "O seu prazo final é: " + new Date(xhr.responseText)
-						.toLocaleDateString("pt-BR", {day: "numeric", month: "long", year: "numeric"});
+						.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" });
 					resultElement.textContent = resultText
 				}
 			};
@@ -56,18 +56,28 @@
 </head>
 
 <body>
-	<p>O sistema a seguir é uma ferramenta simples para mera consulta de prazos processuais cíveis no âmbito do Tribunal
-		de Justiça
-		do Estado de São Paulo a fim de auxiliar advogados, serventia e colegas de trabalho, especialmente da Comarca de
-		Ribeirão Preto.
-	</p>
-	<p></p>
-	<div>
+	<div class="informacoes">
+		<p>
+			O sistema a seguir é uma ferramenta simples para mera consulta de prazos processuais cíveis no âmbito do
+			Tribunal
+			de Justiça
+			do Estado de São Paulo a fim de auxiliar advogados, serventia e colegas de trabalho, especialmente da
+			Comarca de
+			Ribeirão Preto.<br>
+			A calculadora de prazos é específica para processos<strong>digitais</strong>da área cível.
+		</p>
+		<p>
+			O resultado informado é calculado em dias úteis e com base na tabela de feriados e suspensão de prazos do site do<a href="https://www.tjsp.jus.br/CanaisComunicacao/Feriados/ExpedienteForense" target="_blank" rel="external">Tribunal de Justiça</a> de acordo com cada região.
+		</p>
+	</div>
+
+	<div class="form-group">
+		<label>Data da disponibilização no DO?</label>
+		<label><input type="radio" name="do-date" value="sim">Sim</label>
+		<label><input type="radio" name="do-date" value="nao" checked>Não</label>
 		<label for="start-date">Data inicial:</label>
 		<input type="date" id="start-date" />
-	</div>
-	<br>
-	<div class="form-group">
+
 		<label for="city">Escolha a cidade:</label>
 		<select id="city" class="form-control" name="city">
 			<option value="">Selecione uma cidade</option>
@@ -75,8 +85,7 @@
 			<option value="campinas">Campinas</option>
 			<option value="presidente-prudente">Presidente Prudente</option>
 			<option value="marilia">Marília</option>
-		</select>
-		<br><br>
+		</select>		
 		<label for="days-to-add-dropdown">Escolha a quantidade de dias:</label>
 		<select id="days-to-add-dropdown" class="form-control" name="days-to-add-dropdown"
 			onchange="showDaysToAddInput()">
@@ -85,22 +94,26 @@
 			<option value="30">30 dias</option>
 			<option value="60">60 dias</option>
 			<option value="outro">Outro</option>
-		</select>
-	</div>
-	<br>
-	<div>
-		<div id="outro-quantidade" style="display: none;">
-			<label for="days-to-add-custom">Outra quantidade:</label>
-			<input type="number" id="days-to-add-custom" placeholder="Digite o prazo" />
-		</div>
-		<br>
+		</select>		
 		<div>
-			<button onclick="sendData()">Calcular</button>
+			<div id="outro-quantidade" style="display: none;">
+				<label for="days-to-add-custom">Outra quantidade:</label>
+				<input type="number" id="days-to-add-custom" placeholder="Digite o prazo" />
+			</div>
+			<br>			
+			<button onclick="sendData()">Calcular</button>			
+			<br>			
+			<button onclick="window.location.reload()">Limpar</button>			
+			<br>
+			<div id="result"></div>
+			<br>
+			
 		</div>
+	</div>
+	<footer>Criado por Guilherme Pedroza
 		<br>
-		<div id="result"></div>
-		<br>
-		<footer>Criado por Guilherme Pedroza</footer>
+		contato gpedroza@tjsp.jus.br
+	</footer>
 </body>
 
 </html>

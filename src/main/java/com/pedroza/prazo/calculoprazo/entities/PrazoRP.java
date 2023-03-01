@@ -9,20 +9,12 @@ public class PrazoRP extends Prazo {
 			"C:\\Users\\gui_p\\Desktop\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\Prazos_TXT\\PrazoRP.txt";
 
 	public PrazoRP() {
-		super();
-		
-	}
-
-	public PrazoRP(String caminhoArquivo) {
-		super(caminhoArquivo);
-		
-	}
+		super();		
+	}	
 
 	public String getCaminhoArquivo() {
 		return caminhoArquivo;
-	}
-	
-	
+	}	
 	
 	
 
