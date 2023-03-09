@@ -2,7 +2,6 @@ package com.pedroza.prazo.calculoprazo.services;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +18,11 @@ public abstract class PrazoService {
 	
 	public abstract LocalDate addBusinessDays(LocalDate startDate, int daysToAdd);
 	
+	
 	public static void setApplicationContext(ApplicationContext context) {
         applicationContext = context;
     }
-	
-	
+		
 	public static PrazoService selecionaCidade(String city) {
 		switch (city) {
         case "calculateribeirao-preto":
@@ -37,7 +36,7 @@ public abstract class PrazoService {
             // criar classe Marília
 
         default:
-            throw new IllegalArgumentException("Cidade inválida: " + city);
+            throw new IllegalArgumentException("Cidade inválida ou não implementada: " + city);
 		}
 	}
 

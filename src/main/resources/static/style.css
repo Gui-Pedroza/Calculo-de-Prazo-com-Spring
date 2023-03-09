@@ -30,11 +30,6 @@ body {
     background-image: linear-gradient(to right, #2d232e, #474448, #534b52);
 }
 
-button {
-    margin-bottom: 20px;
-    width: 100px;
-}
-
 .form-group {
     background-color: #d5bf86;    
     display: flex;
@@ -68,13 +63,23 @@ button {
 }
 
 button {
+    margin-bottom: 20px;
+    
+    text-align: left;
+    width: 150px;
     background-color: #c4a149;
     font-size: 16px;
     font-weight: bold;
     box-shadow: 5px 5px 10px rgb(75, 75, 75);    
 }
 
+span {
+    padding: 0;
+    margin-left: 0;
+}
+
 footer {
+    margin-top: 60px;
     color: grey;
 }
 

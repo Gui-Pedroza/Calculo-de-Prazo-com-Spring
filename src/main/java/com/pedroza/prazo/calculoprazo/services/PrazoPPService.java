@@ -14,12 +14,19 @@ import com.pedroza.prazo.calculoprazo.entities.PrazoPresidentePrudente;
 
 @Service
 public class PrazoPPService extends PrazoService {
-	
+
 	@Autowired
 	PrazoPresidentePrudente prazoPP;
-	
+
+	private Predicate<LocalDate> isHoliday = date -> prazoPP.getHolidays().isPresent()
+			? prazoPP.getHolidays().get().contains(date)
+			: false;
+
+	private Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
+			|| date.getDayOfWeek() == DayOfWeek.SUNDAY;
+
 	@Override
-	public void loadHolidays() {		
+	public void loadHolidays() {
 		try (BufferedReader br = new BufferedReader(new FileReader(prazoPP.getCaminhoArquivo()))) {
 			String lines = br.readLine();
 			while (lines != null) {
@@ -32,9 +39,19 @@ public class PrazoPPService extends PrazoService {
 
 		} catch (IOException e) {
 			System.out.println("Arquivo de leitura não encontrado " + e.getMessage());
-		}		
-	}	
-	
+		}
+	}
+
+	// caso a data inicial seja feriado ou dia útil, o método retornará o próximo
+	// dia útil subsequente
+	public LocalDate diaUtilSubsequente(LocalDate startDate) {
+		LocalDate proximoDia = startDate;
+		while (isHoliday.or(isWeekend).test(proximoDia)) {
+			proximoDia = proximoDia.plusDays(1);
+		}
+		return proximoDia;
+	}
+
 	@Override
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
@@ -43,13 +60,7 @@ public class PrazoPPService extends PrazoService {
 					+ days + "," + prazoPP.getHolidays() + ")");
 		}
 
-		Predicate<LocalDate> isHoliday = date -> prazoPP.getHolidays()
-				.isPresent() ? prazoPP.getHolidays().get().contains(date) : false;
-
-		Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
-				|| date.getDayOfWeek() == DayOfWeek.SUNDAY;
-
-		LocalDate result = startDate;
+		LocalDate result = diaUtilSubsequente(startDate);
 		while (days > 0) {
 			result = result.plusDays(1);
 			if (isHoliday.or(isWeekend).negate().test(result)) {
@@ -58,7 +69,5 @@ public class PrazoPPService extends PrazoService {
 		}
 		return result;
 	}
-
-	
 
 }

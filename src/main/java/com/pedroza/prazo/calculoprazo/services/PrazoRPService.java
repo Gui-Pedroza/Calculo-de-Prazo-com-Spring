@@ -16,7 +16,14 @@ import com.pedroza.prazo.calculoprazo.entities.PrazoRP;
 public class PrazoRPService extends PrazoService {
 
 	@Autowired
-	 PrazoRP prazoRP;	
+	PrazoRP prazoRP;
+
+	private Predicate<LocalDate> isHoliday = date -> prazoRP.getHolidays().isPresent()
+			? prazoRP.getHolidays().get().contains(date)
+			: false;
+
+	private Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
+			|| date.getDayOfWeek() == DayOfWeek.SUNDAY;
 
 	@Override
 	public void loadHolidays() {
@@ -34,6 +41,17 @@ public class PrazoRPService extends PrazoService {
 			System.out.println("Arquivo de leitura não encontrado " + e.getMessage());
 		}
 	}
+
+	// caso a data inicial seja feriado ou dia útil, o método retornará o próximo
+	// dia útil subsequente
+	public LocalDate diaUtilSubsequente(LocalDate startDate) {
+		LocalDate proximoDia = startDate;
+		while (isHoliday.or(isWeekend).test(proximoDia)) {
+			proximoDia = proximoDia.plusDays(1);
+		}
+		return proximoDia;
+	}
+
 	@Override
 	public LocalDate addBusinessDays(LocalDate startDate, int days) {
 
@@ -42,13 +60,7 @@ public class PrazoRPService extends PrazoService {
 					+ days + "," + prazoRP.getHolidays() + ")");
 		}
 
-		Predicate<LocalDate> isHoliday = date -> prazoRP.getHolidays().isPresent()
-				? prazoRP.getHolidays().get().contains(date) : false;
-
-		Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY
-				|| date.getDayOfWeek() == DayOfWeek.SUNDAY;
-
-		LocalDate result = startDate;
+		LocalDate result = diaUtilSubsequente(startDate);
 		while (days > 0) {
 			result = result.plusDays(1);
 			if (isHoliday.or(isWeekend).negate().test(result)) {
