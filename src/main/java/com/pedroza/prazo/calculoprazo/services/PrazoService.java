@@ -25,14 +25,14 @@ public abstract class PrazoService {
 		
 	public static PrazoService selecionaCidade(String city) {
 		switch (city) {
-        case "calculateribeirao-preto":
+        case "ribeirao-preto":
         	return applicationContext.getBean(PrazoRPService.class);
-        case "calculatepresidente-prudente":
+        case "presidente-prudente":
         	return applicationContext.getBean(PrazoPPService.class);
-        case "calculatecampinas":
+        case "campinas":
             // criar classe Campinas
 
-        case "calculatemarilia":
+        case "marilia":
             // criar classe Marília
 
         default:

@@ -40,7 +40,7 @@
 
 			// Envia os dados usando AJAX
 			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "/calculate" + city, true);
+			xhr.open("POST", "/" + city, true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -76,7 +76,8 @@
 			font-family: Verdana, Geneva, Tahoma, sans-serif;
 			color: #f1f0ea;
 			font-size: 16px;
-			text-align: justify;						
+			text-align: justify;
+			text-indent: 25px;									
 		}
 		a {
 			color: #f1f0ea;
