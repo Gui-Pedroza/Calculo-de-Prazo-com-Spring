@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class PrazoPresidentePrudente extends Prazo {
 	
 	private final String caminhoArquivo = 
-			"C:\\Users\\gui_p\\Desktop\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\Prazos_TXT\\PrazoPP.txt";
+			"D:\\Jornada\\Java\\Udemy\\Projetos_Spring_Tools\\calculoprazo\\Prazos_TXT\\PrazoPP.txt";
 			
 
 	public PrazoPresidentePrudente() {
